@@ -7,7 +7,15 @@ import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['node_modules/**', '.output/**', '.wxt/**', 'coverage/**', 'dist/**', 'stats.html'],
+    ignores: [
+      'node_modules/**',
+      '.output/**',
+      '.wxt/**',
+      '.e2e-tmp/**',
+      'coverage/**',
+      'dist/**',
+      'stats.html',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

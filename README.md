@@ -272,6 +272,7 @@ pnpm format           # prettier --write
 pnpm test             # vitest run
 pnpm test:watch       # vitest
 pnpm test:e2e         # drives the built extension in a real Chromium
+pnpm screenshots:store # compose 1280x800 Web Store assets from the captures
 pnpm icons            # regenerate PNGs from assets/icon.svg
 ```
 
