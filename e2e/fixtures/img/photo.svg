@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#312e81"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+  <rect width="1200" height="700" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.9">
+    <rect x="150" y="180" width="260" height="340" rx="8"/>
+    <rect x="460" y="140" width="260" height="380" rx="8" opacity="0.75"/>
+    <rect x="770" y="220" width="260" height="300" rx="8" opacity="0.55"/>
+  </g>
+  <text x="600" y="620" font-family="sans-serif" font-size="30" fill="#e0e7ff" text-anchor="middle">Sheets, stacked</text>
+</svg>

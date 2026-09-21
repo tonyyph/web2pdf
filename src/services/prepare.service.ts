@@ -284,8 +284,15 @@ export function restorePage(): void {
 
   for (const snapshot of current.styleSnapshots) {
     snapshot.element.removeAttribute(HIDDEN_ATTR);
-    if (snapshot.previous === null) snapshot.element.removeAttribute('style');
-    else snapshot.element.setAttribute('style', snapshot.previous);
+    // An empty `style=""` is indistinguishable from no style attribute, so it
+    // is normalised away rather than written back. Without this, a snapshot
+    // that captured an empty attribute leaves inert markup behind and makes
+    // restoration non-idempotent across repeated exports.
+    if (snapshot.previous === null || snapshot.previous === '') {
+      snapshot.element.removeAttribute('style');
+    } else {
+      snapshot.element.setAttribute('style', snapshot.previous);
+    }
   }
 
   for (const details of current.openedDetails) {

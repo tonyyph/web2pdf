@@ -43,6 +43,15 @@ export default tseslint.config(
     rules: { 'no-console': 'off' },
   },
   {
+    // e2e drivers run in Node but embed callbacks that are serialised into the
+    // browser, so they legitimately reference both global sets.
+    files: ['e2e/**/*.mjs'],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser, ...globals.webextensions },
+    },
+    rules: { 'no-console': 'off' },
+  },
+  {
     files: ['tests/**/*.{ts,tsx}', '**/*.test.{ts,tsx}'],
     languageOptions: { globals: { ...globals.node } },
     rules: { '@typescript-eslint/no-explicit-any': 'off', 'no-console': 'off' },

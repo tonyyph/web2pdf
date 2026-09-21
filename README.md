@@ -13,7 +13,8 @@ Everything happens on your device. There is no backend and no network request.
 
 ## Screenshots
 
-Placeholders — capture these before submitting to the Chrome Web Store:
+`pnpm build && pnpm test:e2e` generates these into `docs/screenshots/` from a real
+browser run. Regenerate them whenever the UI changes:
 
 | File                                  | What to capture                                                                         | Size     |
 | ------------------------------------- | --------------------------------------------------------------------------------------- | -------- |
@@ -21,11 +22,11 @@ Placeholders — capture these before submitting to the Chrome Web Store:
 | `docs/screenshots/popup-dark.png`     | The same popup in dark theme                                                            | 1280×800 |
 | `docs/screenshots/selection-mode.png` | "Select elements to remove" active, with an element highlighted and the toolbar visible | 1280×800 |
 | `docs/screenshots/options.png`        | The settings page, scrolled to the filename template with its live preview              | 1280×800 |
-| `docs/screenshots/result.png`         | Side by side: the source page and the generated PDF open in a viewer                    | 1280×800 |
+| `docs/screenshots/popup-success.png`  | The popup after a completed export                                                      | 400×600  |
+| `docs/screenshots/source-page.png`    | The fixture article the export runs against                                             | 1280×800 |
 
-To capture: load the unpacked extension (below), open a long article, and use Chrome's
-own screenshot tool at a 1280×800 window size. The Web Store accepts 1280×800 or
-640×400; 1280×800 is strongly preferred.
+The Web Store accepts 1280×800 or 640×400 and needs at least one. The 400×600 popup
+shots are for the README; capture or pad a 1280×800 variant for the listing itself.
 
 ---
 
@@ -270,8 +271,34 @@ pnpm lint             # eslint .
 pnpm format           # prettier --write
 pnpm test             # vitest run
 pnpm test:watch       # vitest
+pnpm test:e2e         # drives the built extension in a real Chromium
 pnpm icons            # regenerate PNGs from assets/icon.svg
 ```
+
+### End-to-end tests
+
+`pnpm build && pnpm test:e2e` loads the built extension into a real (headed) Chromium,
+serves a fixture article locally, and drives the popup through a full export: PDF
+generated and downloaded, filename template applied, page restored, selection overlay
+opened and torn down, unsupported page reported, settings persisted. It also regenerates
+the screenshots in `docs/screenshots/`.
+
+Two things worth knowing about the harness:
+
+- **It loads a patched build.** The shipped extension holds only `activeTab`, which Chrome
+  grants solely on a real toolbar click - browser chrome Playwright cannot reach
+  (`chrome.action.openPopup()` grants nothing, and `executeScript` is refused). The
+  harness copies the build and adds one host permission scoped to `http://127.0.0.1/*`.
+  That is the only difference from the shipped artifact.
+- **Playwright's download interception is overridden.** With `acceptDownloads` on it
+  redirects files into its own artifact store; with it off it cancels them as
+  `USER_CANCELED`. The harness sets `Browser.setDownloadBehavior` explicitly so
+  `chrome.downloads` writes land where the test can inspect them.
+
+One cosmetic artifact is recorded rather than asserted: Chrome's print pass re-adds an
+empty `style=""` attribute to the elements it touched, after Web2PDF has already removed
+it. The attribute is inert, and the emitted restore code normalises an empty value away,
+so the comparison strips it.
 
 CI (`.github/workflows/ci.yml`) runs typecheck, lint, test and build on every push and
 pull request, and uploads the packaged zips as artifacts.
@@ -318,9 +345,11 @@ These are real constraints, documented rather than papered over:
 2. **One export at a time per tab.** Chrome allows a single debugger client per tab.
    Starting an export on a tab that already has one returns the existing job rather than
    racing it.
-3. **DevTools blocks exports.** If DevTools is open on the tab, Chrome refuses the
-   attach. Web2PDF detects this up front and reports `DEBUGGER_ALREADY_ATTACHED` with a
-   print-dialog fallback rather than failing opaquely.
+3. **Another debugger client can block exports.** Chrome sometimes refuses a second
+   debugger attach (typically with DevTools open on that tab). Web2PDF does not
+   pre-refuse on `getTargets()` - verified against Chrome, a target can report
+   `attached: true` and still accept a second client - so it attempts the attach and
+   maps a genuine refusal to `DEBUGGER_ALREADY_ATTACHED` with a print-dialog fallback.
 4. **Only the top frame is exported.** `Page.printToPDF` prints the main frame; content
    inside cross-origin iframes renders as the browser would print it, which may differ
    from what you see.

@@ -97,15 +97,13 @@ export async function withDebugger<T>(
   target: DebuggerTarget,
   work: () => Promise<T>,
 ): Promise<Result<T, AppError>> {
-  if (await isDebuggerAttached(target.tabId)) {
-    return err(
-      createError(
-        'DEBUGGER_ALREADY_ATTACHED',
-        `Tab ${target.tabId} already has a debugger client attached`,
-      ),
-    );
-  }
-
+  // Deliberately no pre-flight `getTargets()` gate. A target can report
+  // `attached: true` while still accepting a second CDP client - verified
+  // against Chrome, where an automation client holds a session and
+  // `chrome.debugger.attach` nonetheless succeeds. Refusing up front turned a
+  // working export into a false failure, so we attempt the attach and map the
+  // rejection instead; Chrome's own "already attached" message is what
+  // produces DEBUGGER_ALREADY_ATTACHED.
   try {
     await attachDebugger(target);
   } catch (error) {

@@ -111,6 +111,35 @@ describe('preparePage / restorePage', () => {
     expect(banner.hasAttribute('style')).toBe(false);
   });
 
+  it('leaves no empty style attribute when the original was empty', async () => {
+    document.body.innerHTML = '<div class="cookie-banner" style="">x</div>';
+    const banner = document.querySelector<HTMLElement>('.cookie-banner')!;
+    expect(banner.getAttribute('style')).toBe('');
+
+    await preparePage({
+      cleanup: cleanup({ hideCookieBanners: true, loadLazyContent: false }),
+      hiddenSelectors: [],
+    });
+    restorePage();
+
+    expect(banner.hasAttribute('style')).toBe(false);
+  });
+
+  it('restores identically when run twice (idempotent)', async () => {
+    document.body.innerHTML = '<div class="cookie-banner">x</div><nav>n</nav>';
+    const before = document.body.innerHTML;
+
+    for (let i = 0; i < 2; i += 1) {
+      await preparePage({
+        cleanup: cleanup({ hideCookieBanners: true, loadLazyContent: false }),
+        hiddenSelectors: [],
+      });
+      restorePage();
+    }
+
+    expect(document.body.innerHTML).toBe(before);
+  });
+
   it('hides user-selected elements', async () => {
     document.body.innerHTML = '<div id="unwanted">x</div><div id="wanted">y</div>';
 

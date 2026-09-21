@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Quiet Engineering Behind Paper Sizes</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          16px/1.7 ui-serif,
+          Georgia,
+          serif;
+        color: #1f2430;
+        background: #fbfbfd;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 14px 32px;
+        background: #111827;
+        color: #f9fafb;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+      }
+      nav b {
+        font-size: 15px;
+      }
+      nav a {
+        color: #c7d2fe;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px 24px 120px;
+      }
+      h1 {
+        font-size: 40px;
+        line-height: 1.15;
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+      }
+      .byline {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 36px;
+      }
+      h2 {
+        font-size: 24px;
+        margin: 40px 0 12px;
+        letter-spacing: -0.01em;
+      }
+      figure {
+        margin: 32px 0;
+      }
+      figure img {
+        width: 100%;
+        border-radius: 10px;
+        display: block;
+      }
+      figcaption {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 8px;
+      }
+      blockquote {
+        margin: 28px 0;
+        padding: 4px 0 4px 20px;
+        border-left: 3px solid #6366f1;
+        color: #374151;
+        font-style: italic;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        margin: 24px 0;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 9px 10px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      th {
+        background: #f3f4f6;
+      }
+      /* Page furniture the extension is expected to strip. */
+      .ad-container {
+        margin: 32px 0;
+        padding: 28px;
+        text-align: center;
+        background: repeating-linear-gradient(45deg, #fee2e2, #fee2e2 10px, #fecaca 10px, #fecaca 20px);
+        border: 1px dashed #ef4444;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        color: #991b1b;
+      }
+      .cookie-banner {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        background: #1f2937;
+        color: #f9fafb;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+      }
+      .cookie-banner button {
+        padding: 7px 14px;
+        border: 0;
+        border-radius: 6px;
+        background: #6366f1;
+        color: #fff;
+        font: inherit;
+        cursor: pointer;
+      }
+      footer[role='contentinfo'] {
+        padding: 28px 32px;
+        background: #111827;
+        color: #9ca3af;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+      }
+      details {
+        margin: 20px 0;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <nav role="navigation">
+      <b>The Standards Review</b>
+      <a href="#">Archive</a>
+      <a href="#">Topics</a>
+      <a href="#">About</a>
+    </nav>
+
+    <main>
+      <article class="wrap">
+        <h1>The Quiet Engineering Behind Paper Sizes</h1>
+        <p class="byline">By A. Reviewer &middot; 21 September 2026 &middot; 8 min read</p>
+
+        <p>
+          Every A4 sheet you have ever handled is a rectangle whose sides stand in a ratio of
+          one to the square root of two. That is not an aesthetic choice. It is the only ratio
+          that survives being folded in half: halve an A4 sheet across its long side and you get
+          two sheets of exactly the same proportion, which we call A5.
+        </p>
+
+        <figure>
+          <img
+            src="/img/diagram.svg"
+            width="1200"
+            height="600"
+            alt="Diagram showing an A-series sheet halving into the same proportion"
+          />
+          <figcaption>Each fold preserves the ratio. This is the whole trick.</figcaption>
+        </figure>
+
+        <h2>Why the ratio matters</h2>
+        <p>
+          Because the proportion is preserved, scaling artwork between sizes never crops or
+          letterboxes it. A poster designed for A2 reduces cleanly onto A4 with a single
+          percentage, and every photocopier in the world ships with that percentage as a labelled
+          button.
+        </p>
+
+        <blockquote>
+          A standard is successful when it stops being visible. Nobody thinks about the square
+          root of two while loading a printer tray.
+        </blockquote>
+
+        <div class="ad-container">Advertisement &mdash; this block should not appear in the PDF</div>
+
+        <h2>The numbers</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Millimetres</th>
+              <th>Inches</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>A3</td>
+              <td>297 &times; 420</td>
+              <td>11.69 &times; 16.54</td>
+            </tr>
+            <tr>
+              <td>A4</td>
+              <td>210 &times; 297</td>
+              <td>8.27 &times; 11.69</td>
+            </tr>
+            <tr>
+              <td>Letter</td>
+              <td>215.9 &times; 279.4</td>
+              <td>8.5 &times; 11</td>
+            </tr>
+            <tr>
+              <td>Legal</td>
+              <td>215.9 &times; 355.6</td>
+              <td>8.5 &times; 14</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>The American exception</h2>
+        <p>
+          US Letter is 8.5 by 11 inches, a ratio of roughly 1.294 rather than 1.414. Halving it
+          does not reproduce itself, which is why American office workflows involve rather more
+          manual scaling than they might otherwise.
+        </p>
+
+        <details>
+          <summary>A note on the B and C series</summary>
+          <p>
+            The C series sizes envelopes: a C4 envelope swallows an unfolded A4 sheet, and a C5
+            takes an A4 folded once. The B series sits geometrically between adjacent A sizes.
+          </p>
+        </details>
+
+        <figure>
+          <img
+            src="/img/photo.svg"
+            width="1200"
+            height="700"
+            alt="An abstract print-shop illustration"
+            loading="lazy"
+          />
+          <figcaption>Lazy-loaded below the fold, to exercise the scroll pass.</figcaption>
+        </figure>
+
+        <h2>What this has to do with software</h2>
+        <p>
+          Printing from a browser means reconciling a document with no fixed height against a
+          sheet that has one. The page box, its margins, and the scale factor are the three dials
+          that reconciliation turns, and every one of them is expressed in inches once it reaches
+          the printing pipeline, regardless of what the interface showed you.
+        </p>
+        <p>
+          A converter that respects this does its arithmetic once, in one place, and keeps the
+          rounding consistent. One that does not produces PDFs whose margins drift by a
+          millimetre or two depending on which dialog you came through.
+        </p>
+      </article>
+    </main>
+
+    <footer role="contentinfo">&copy; 2026 The Standards Review &mdash; a fixture page.</footer>
+
+    <div class="cookie-banner">
+      <span>We use cookies to measure how far you scroll.</span>
+      <button type="button">Accept all</button>
+    </div>
+  </body>
+</html>

@@ -65,16 +65,32 @@ describe('withDebugger', () => {
     expect(mock.debugger.detach).toHaveBeenCalledTimes(1);
   });
 
-  it('refuses to attach when another client already holds the tab', async () => {
+  it('still attempts the attach when the target reports another client', async () => {
+    // Chrome allows a second CDP client on a target that already reports
+    // `attached: true`, so reporting is not a reason to refuse up front.
     mock.debugger.getTargets.mockResolvedValue([{ tabId: 1, attached: true }]);
+
+    const result = await withDebugger({ tabId: 1 }, async () => 'value');
+
+    expect(result).toEqual({ ok: true, value: 'value' });
+    expect(mock.debugger.attach).toHaveBeenCalledTimes(1);
+    expect(mock.debugger.detach).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports DEBUGGER_ALREADY_ATTACHED only when Chrome actually refuses', async () => {
+    mock.debugger.attach.mockImplementation((_t: unknown, _v: string, callback?: () => void) => {
+      mock.runtime.lastError = {
+        message: 'Another debugger is already attached to the tab with id: 1',
+      };
+      callback?.();
+      mock.runtime.lastError = undefined;
+    });
 
     const result = await withDebugger({ tabId: 1 }, async () => 'unreachable');
 
     expect(result.ok).toBe(false);
     if (result.ok) throw new Error('expected failure');
     expect(result.error.code).toBe('DEBUGGER_ALREADY_ATTACHED');
-    expect(mock.debugger.attach).not.toHaveBeenCalled();
-    expect(mock.debugger.detach).not.toHaveBeenCalled();
   });
 
   it('maps a failed attach to DEBUGGER_ATTACH_FAILED', async () => {
