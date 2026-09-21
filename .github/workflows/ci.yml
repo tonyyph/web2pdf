@@ -18,9 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # No `version:` here - package.json's `packageManager` field is the single
+      # source of truth; specifying both fails the action with a version mismatch.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - uses: actions/setup-node@v5
         with:
