@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+/* Dark mode is driven by a class on <html>, set from the saved theme
+   preference and kept in sync with the OS when the theme is "system". */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50: oklch(0.97 0.014 274);
+  --color-brand-100: oklch(0.94 0.031 274);
+  --color-brand-200: oklch(0.89 0.058 274);
+  --color-brand-300: oklch(0.81 0.098 274);
+  --color-brand-400: oklch(0.71 0.15 274);
+  --color-brand-500: oklch(0.62 0.19 274);
+  --color-brand-600: oklch(0.55 0.21 274);
+  --color-brand-700: oklch(0.48 0.19 274);
+  --color-brand-800: oklch(0.4 0.155 274);
+  --color-brand-900: oklch(0.34 0.12 274);
+
+  --radius-card: 0.75rem;
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      sans-serif;
+  }
+
+  /* Visible focus for keyboard users on every interactive element. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .w2p-card {
+    @apply rounded-[var(--radius-card)] border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  .w2p-label {
+    @apply text-[11px] font-medium tracking-wide text-slate-500 uppercase dark:text-slate-400;
+  }
+
+  .w2p-input {
+    @apply w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-sm text-slate-900 transition-colors duration-150 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-slate-600;
+  }
+
+  .w2p-segment {
+    @apply flex rounded-lg border border-slate-200 bg-slate-100 p-0.5 dark:border-slate-700 dark:bg-slate-800;
+  }
+
+  .w2p-segment-item {
+    @apply flex-1 rounded-[0.4rem] px-2 py-1 text-xs font-medium text-slate-600 transition-all duration-150 ease-[var(--ease-snap)] hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-400 dark:hover:text-slate-100;
+  }
+
+  .w2p-segment-item[aria-pressed='true'] {
+    @apply bg-white text-brand-700 shadow-sm dark:bg-slate-700 dark:text-brand-200;
+  }
+
+  /* Tailwind v4 cannot @apply a class defined in the same layer, so the shared
+     button base is a grouped selector rather than an @apply of .w2p-btn. */
+  .w2p-btn,
+  .w2p-btn-primary,
+  .w2p-btn-ghost,
+  .w2p-btn-subtle {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-150 ease-[var(--ease-snap)] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .w2p-btn-primary {
+    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:scale-[0.99] disabled:hover:bg-brand-600;
+  }
+
+  .w2p-btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
+  }
+
+  .w2p-btn-subtle {
+    @apply border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700;
+  }
+}
