@@ -14,18 +14,17 @@ const ROOT = resolve(HERE, '..');
 const OUT_DIR = resolve(ROOT, 'public/icon');
 
 /**
- * 48 and 128 come from the supplied artwork (`assets/icon-source.png`, a 1024
- * master trimmed and squared from the original export). 16 and 32 come from a
- * simplified SVG: the full artwork's two stacked elements merge into a smudge
- * below 48, so those sizes show only the output document, on the same tile and
- * palette.
+ * Every size is rasterised from the supplied artwork
+ * (`assets/icon-source.png`, a 1024 master trimmed and squared from the
+ * original export), unmodified and by explicit request.
+ *
+ * Note for whoever tunes this later: the artwork carries a browser window, a
+ * document, text lines and an arrow. That resolves well at 128 and holds at
+ * 48, but the two stacked elements merge around 32 and little is readable at
+ * 16. Lanczos with a light sharpen recovers as much edge definition as the
+ * downscale allows.
  */
-const SOURCES = {
-  16: resolve(ROOT, 'assets/icon-small.svg'),
-  32: resolve(ROOT, 'assets/icon-small.svg'),
-  48: resolve(ROOT, 'assets/icon-source.png'),
-  128: resolve(ROOT, 'assets/icon-source.png'),
-};
+const SOURCE = resolve(ROOT, 'assets/icon-source.png');
 const SIZES = [16, 32, 48, 128];
 
 async function main() {
@@ -42,12 +41,19 @@ async function main() {
 
   await mkdir(OUT_DIR, { recursive: true });
 
+  const master = await readFile(SOURCE);
+
   for (const size of SIZES) {
-    const svg = await readFile(SOURCES[size]);
-    const png = await sharp(svg, { density: 384 })
-      .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png({ compressionLevel: 9, palette: false })
-      .toBuffer();
+    let pipeline = sharp(master).resize(size, size, {
+      fit: 'contain',
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+      kernel: 'lanczos3',
+    });
+    // Small sizes lose their edges to the downscale; a light unsharp mask puts
+    // some definition back without introducing halos.
+    if (size <= 32) pipeline = pipeline.sharpen({ sigma: 0.6, m1: 0.5, m2: 0.6 });
+
+    const png = await pipeline.png({ compressionLevel: 9, palette: false }).toBuffer();
 
     const target = resolve(OUT_DIR, `${size}.png`);
     await writeFile(target, png);
