@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!--
+    Small-size variant, used for the 16px and 32px PNGs.
+
+    The full mark keeps the sheet at 44% of the tile width, which leaves the
+    knocked-out arrow about 7px wide once rendered at 16 - it turns to a blob.
+    Here the sheet is dropped and the arrow carries the whole mark: at toolbar
+    size "orange tile, white download arrow" is legible and still on-brand,
+    while the document silhouette would not have been visible anyway.
+  -->
+  <defs>
+    <linearGradient id="w2pBgSm" x1="8" y1="0" x2="120" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFC24A" />
+      <stop offset="0.55" stop-color="#FB8B1E" />
+      <stop offset="1" stop-color="#EE4E0B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="30" fill="url(#w2pBgSm)" />
+  <path d="M64 26v42" stroke="#fff" stroke-width="20" stroke-linecap="round" />
+  <path d="M34 62h60L64 100Z" fill="#fff" />
+  <rect x="34" y="104" width="60" height="16" rx="8" fill="#fff" fill-opacity="0.92" />
+</svg>

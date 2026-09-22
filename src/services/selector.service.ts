@@ -94,11 +94,11 @@ function injectStyles(): HTMLStyleElement {
     #${ROOT_ID} { all: initial; }
     #${ROOT_ID} .w2p-highlight {
       position: fixed; pointer-events: none; z-index: 2147483646;
-      border: 2px solid #6366f1; background: rgba(99, 102, 241, 0.18);
+      border: 2px solid #ea580c; background: rgba(234, 88, 12, 0.16);
       border-radius: 4px; transition: all 90ms ease-out; display: none;
     }
     #${ROOT_ID} .w2p-marked {
-      outline: 2px dashed #ef4444 !important;
+      outline: 2px dashed #b91c1c !important;
       outline-offset: 2px !important;
       opacity: 0.4 !important;
     }
@@ -115,7 +115,7 @@ function injectStyles(): HTMLStyleElement {
       padding: 6px 10px; border-radius: 8px;
     }
     #${ROOT_ID} .w2p-toolbar button:hover { background: rgba(255,255,255,0.18); }
-    #${ROOT_ID} .w2p-toolbar button.w2p-primary { background: #6366f1; border-color: #6366f1; }
+    #${ROOT_ID} .w2p-toolbar button.w2p-primary { background: #c2410c; border-color: #c2410c; }
     #${ROOT_ID} .w2p-count { opacity: 0.85; }
   `;
   document.documentElement.appendChild(style);

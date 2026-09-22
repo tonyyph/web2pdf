@@ -23,12 +23,15 @@ const OUT = join(ROOT, 'docs/screenshots/store');
 /** The same document-with-arrow mark as the extension icon. */
 const LOGO = `
 <svg viewBox="0 0 128 128" class="logo" aria-hidden="true">
-  <rect width="128" height="128" rx="28" fill="rgba(255,255,255,0.14)"/>
-  <path d="M40 28h30l22 22v46a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8V36a8 8 0 0 1 8-8Z" fill="#fff"/>
-  <path d="M70 28v16a6 6 0 0 0 6 6h16Z" fill="#C7D2FE"/>
-  <path d="M64 56v22m0 0 11-11m-11 11L53 67" fill="none" stroke="#4338CA"
-        stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M46 92h36" stroke="#4338CA" stroke-width="7" stroke-linecap="round"/>
+  <rect width="128" height="128" rx="28" fill="rgba(255,255,255,0.16)"/>
+  <mask id="promoCut">
+    <rect width="128" height="128" fill="#000"/>
+    <path d="M38 24h34l22 22v58a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8Z" fill="#fff"/>
+    <path d="M62 44v22" stroke="#000" stroke-width="12" stroke-linecap="round"/>
+    <path d="M44 68h36L62 90Z" fill="#000"/>
+  </mask>
+  <rect width="128" height="128" mask="url(#promoCut)" fill="#fff"/>
+  <path d="M72 24v16a6 6 0 0 0 6 6h16Z" fill="#FFE2BC"/>
 </svg>`;
 
 function page({ width, height, scale }) {
@@ -42,7 +45,7 @@ function page({ width, height, scale }) {
     font-family: ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     background:
       radial-gradient(120% 140% at 88% 8%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%),
-      linear-gradient(135deg, #6366f1 0%, #4f46e5 45%, #3f34b8 100%);
+      linear-gradient(135deg, #FFB03A 0%, #F97316 45%, #E04405 100%);
     position: relative;
   }
   /* Faint sheets fanned out behind the text - reads as "pages", not clip-art. */

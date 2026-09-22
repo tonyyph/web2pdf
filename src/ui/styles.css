@@ -5,16 +5,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-50: oklch(0.97 0.014 274);
-  --color-brand-100: oklch(0.94 0.031 274);
-  --color-brand-200: oklch(0.89 0.058 274);
-  --color-brand-300: oklch(0.81 0.098 274);
-  --color-brand-400: oklch(0.71 0.15 274);
-  --color-brand-500: oklch(0.62 0.19 274);
-  --color-brand-600: oklch(0.55 0.21 274);
-  --color-brand-700: oklch(0.48 0.19 274);
-  --color-brand-800: oklch(0.4 0.155 274);
-  --color-brand-900: oklch(0.34 0.12 274);
+  /* Brand ramp. Shades are chosen against measured contrast, not by eye:
+     #f97316 (500) on white is only 2.80:1 and #ea580c (600) is 3.56:1, so
+     neither can carry white body text. 700 (#c2410c, 5.18:1) is the lightest
+     shade that clears WCAG AA, which is why the primary button sits there
+     while 600 is reserved for focus rings and toggles, where 3:1 suffices. */
+  --color-brand-50: #fff7ed;
+  --color-brand-100: #ffedd5;
+  --color-brand-200: #fed7aa;
+  --color-brand-300: #fdba74;
+  --color-brand-400: #fb923c;
+  --color-brand-500: #f97316;
+  --color-brand-600: #ea580c;
+  --color-brand-700: #c2410c;
+  --color-brand-800: #9a3412;
+  --color-brand-900: #7c2d12;
 
   --radius-card: 0.75rem;
   --ease-snap: cubic-bezier(0.2, 0, 0, 1);
@@ -47,7 +52,7 @@
 
   /* Visible focus for keyboard users on every interactive element. */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand-500;
+    @apply outline-2 outline-offset-2 outline-brand-600;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -95,7 +100,7 @@
   }
 
   .w2p-btn-primary {
-    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:scale-[0.99] disabled:hover:bg-brand-600;
+    @apply bg-brand-700 text-white shadow-sm hover:bg-brand-800 active:scale-[0.99] disabled:hover:bg-brand-700;
   }
 
   .w2p-btn-ghost {
