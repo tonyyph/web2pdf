@@ -273,6 +273,7 @@ pnpm test             # vitest run
 pnpm test:watch       # vitest
 pnpm test:e2e         # drives the built extension in a real Chromium
 pnpm screenshots:store # compose 1280x800 Web Store assets from the captures
+pnpm promo            # render the 440x280 and 1400x560 promo tiles
 pnpm icons            # regenerate PNGs from assets/icon.svg
 ```
 

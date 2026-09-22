@@ -23,7 +23,8 @@
     "test:e2e": "node e2e/run.mjs",
     "icons": "node scripts/generate-icons.mjs",
     "postinstall": "wxt prepare",
-    "screenshots:store": "node scripts/make-store-screenshots.mjs"
+    "screenshots:store": "node scripts/make-store-screenshots.mjs",
+    "promo": "node scripts/make-promo-tiles.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
