@@ -14,15 +14,17 @@ const ROOT = resolve(HERE, '..');
 const OUT_DIR = resolve(ROOT, 'public/icon');
 
 /**
- * Small sizes use a simplified mark. The full sheet-and-fold silhouette holds
- * up at 48 and 128; at 16 and 32 the knocked-out arrow inside the sheet is too
- * few pixels wide to read, so those sizes get the arrow-only variant.
+ * 48 and 128 come from the supplied artwork (`assets/icon-source.png`, a 1024
+ * master trimmed and squared from the original export). 16 and 32 come from a
+ * simplified SVG: the full artwork's two stacked elements merge into a smudge
+ * below 48, so those sizes show only the output document, on the same tile and
+ * palette.
  */
 const SOURCES = {
   16: resolve(ROOT, 'assets/icon-small.svg'),
   32: resolve(ROOT, 'assets/icon-small.svg'),
-  48: resolve(ROOT, 'assets/icon.svg'),
-  128: resolve(ROOT, 'assets/icon.svg'),
+  48: resolve(ROOT, 'assets/icon-source.png'),
+  128: resolve(ROOT, 'assets/icon-source.png'),
 };
 const SIZES = [16, 32, 48, 128];
 

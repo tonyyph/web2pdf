@@ -5,21 +5,52 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Brand ramp. Shades are chosen against measured contrast, not by eye:
-     #f97316 (500) on white is only 2.80:1 and #ea580c (600) is 3.56:1, so
-     neither can carry white body text. 700 (#c2410c, 5.18:1) is the lightest
-     shade that clears WCAG AA, which is why the primary button sits there
-     while 600 is reserved for focus rings and toggles, where 3:1 suffices. */
-  --color-brand-50: #fff7ed;
-  --color-brand-100: #ffedd5;
+  /* ------------------------------------------------------------------
+     Supplied brand palette:
+
+       #FFFFFF  Nen chinh      surface / card fill
+       #FFF7ED  Nen phu        page background
+       #FED7AA  Vien, divider  borders
+       #FDBA74  Mau phu        secondary fills
+       #F97316  Mau chinh      primary button, progress fill
+       #EA580C  Mau nhan dam   focus rings, toggles, sliders
+       #1F2937  Text chinh     body text, and the label on primary fills
+       #6B7280  Text phu       secondary text
+
+     Applied by re-pointing the neutral and brand scales rather than editing
+     utilities across every component, so the palette governs the whole UI
+     from one place.
+
+     Measured, because contrast decides the roles, not preference:
+       white   on #F97316 = 2.80:1  fails AA
+       white   on #EA580C = 3.56:1  fails AA
+       #1F2937 on #F97316 = 5.24:1  passes AA  <- primary button
+       #1F2937 on #FFFFFF = 14.68:1
+       #6B7280 on #FFF7ED = 4.55:1
+       #EA580C on #FFFFFF = 3.56:1  clears the 3:1 bar for UI, not for text
+     ------------------------------------------------------------------ */
+
+  /* Warm neutral ramp anchored on the four supplied neutrals. The mid steps
+     stay grey on purpose: an "off" toggle tinted orange reads as "on". */
+  --color-slate-50: #fff7ed; /* Nen phu */
+  --color-slate-100: #ffedd5; /* derived tint between Nen phu and Vien */
+  --color-slate-200: #fed7aa; /* Vien / divider */
+  --color-slate-300: #d1d5db;
+  --color-slate-400: #9ca3af;
+  --color-slate-500: #6b7280; /* Text phu */
+  --color-slate-600: #4b5563;
+  --color-slate-700: #374151;
+  --color-slate-800: #1f2937; /* Text chinh */
+  --color-slate-900: #1f2937; /* Text chinh */
+  --color-slate-950: #111827; /* dark-mode page */
+
   --color-brand-200: #fed7aa;
-  --color-brand-300: #fdba74;
-  --color-brand-400: #fb923c;
-  --color-brand-500: #f97316;
-  --color-brand-600: #ea580c;
-  --color-brand-700: #c2410c;
-  --color-brand-800: #9a3412;
-  --color-brand-900: #7c2d12;
+  --color-brand-300: #fdba74; /* Mau phu */
+  --color-brand-400: #fdba74;
+  --color-brand-500: #f97316; /* Mau chinh */
+  --color-brand-600: #ea580c; /* Mau nhan dam */
+  --color-brand-700: #ea580c;
+  --color-brand-800: #ea580c;
 
   --radius-card: 0.75rem;
   --ease-snap: cubic-bezier(0.2, 0, 0, 1);
@@ -50,7 +81,8 @@
       sans-serif;
   }
 
-  /* Visible focus for keyboard users on every interactive element. */
+  /* #EA580C is the lightest palette colour that clears 3:1 against white,
+     which is the bar for a focus indicator. */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-600;
   }
@@ -67,27 +99,29 @@
 
 @layer components {
   .w2p-card {
-    @apply rounded-[var(--radius-card)] border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+    @apply rounded-[var(--radius-card)] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800;
   }
 
   .w2p-label {
-    @apply text-[11px] font-medium tracking-wide text-slate-500 uppercase dark:text-slate-400;
+    @apply text-[11px] font-medium tracking-wide text-slate-500 uppercase dark:text-brand-300;
   }
 
   .w2p-input {
-    @apply w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-sm text-slate-900 transition-colors duration-150 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-slate-600;
+    @apply w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-sm text-slate-900 transition-colors duration-150 placeholder:text-slate-400 hover:border-brand-300 focus:border-brand-600 focus:ring-2 focus:ring-brand-600/25 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-brand-300;
   }
 
   .w2p-segment {
-    @apply flex rounded-lg border border-slate-200 bg-slate-100 p-0.5 dark:border-slate-700 dark:bg-slate-800;
+    @apply flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 dark:border-slate-700 dark:bg-slate-950;
   }
 
   .w2p-segment-item {
-    @apply flex-1 rounded-[0.4rem] px-2 py-1 text-xs font-medium text-slate-600 transition-all duration-150 ease-[var(--ease-snap)] hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-400 dark:hover:text-slate-100;
+    @apply flex-1 rounded-[0.4rem] px-2 py-1 text-xs font-medium text-slate-500 transition-all duration-150 ease-[var(--ease-snap)] hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:text-brand-300 dark:hover:text-slate-100;
   }
 
+  /* Selected state is a filled pill: #1F2937 on #F97316 is 5.24:1, whereas an
+     orange label on a white pill would only reach 2.80:1. */
   .w2p-segment-item[aria-pressed='true'] {
-    @apply bg-white text-brand-700 shadow-sm dark:bg-slate-700 dark:text-brand-200;
+    @apply bg-brand-500 font-semibold text-slate-900 shadow-sm dark:bg-brand-500 dark:text-slate-900;
   }
 
   /* Tailwind v4 cannot @apply a class defined in the same layer, so the shared
@@ -99,15 +133,18 @@
     @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-150 ease-[var(--ease-snap)] disabled:cursor-not-allowed disabled:opacity-50;
   }
 
+  /* The fill stays #F97316 in every state so the label keeps its 5.24:1.
+     Hover deepens a ring rather than the fill, because #EA580C under the same
+     dark label would drop to 4.12:1. */
   .w2p-btn-primary {
-    @apply bg-brand-700 text-white shadow-sm hover:bg-brand-800 active:scale-[0.99] disabled:hover:bg-brand-700;
+    @apply bg-brand-500 font-semibold text-slate-900 shadow-sm ring-0 ring-brand-600 hover:shadow-md hover:ring-2 active:scale-[0.99];
   }
 
   .w2p-btn-ghost {
-    @apply text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
+    @apply text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-brand-300 dark:hover:bg-slate-800 dark:hover:text-slate-100;
   }
 
   .w2p-btn-subtle {
-    @apply border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700;
+    @apply border border-slate-200 bg-white text-slate-900 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-brand-300;
   }
 }

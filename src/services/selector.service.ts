@@ -94,7 +94,7 @@ function injectStyles(): HTMLStyleElement {
     #${ROOT_ID} { all: initial; }
     #${ROOT_ID} .w2p-highlight {
       position: fixed; pointer-events: none; z-index: 2147483646;
-      border: 2px solid #ea580c; background: rgba(234, 88, 12, 0.16);
+      border: 2px solid #EA580C; background: rgba(249, 115, 22, 0.16);
       border-radius: 4px; transition: all 90ms ease-out; display: none;
     }
     #${ROOT_ID} .w2p-marked {
@@ -106,7 +106,7 @@ function injectStyles(): HTMLStyleElement {
       position: fixed; z-index: 2147483647; left: 50%; bottom: 24px;
       transform: translateX(-50%); display: flex; align-items: center; gap: 8px;
       padding: 10px 12px; border-radius: 12px;
-      background: #111827; color: #f9fafb; box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      background: #1F2937; color: #FFF7ED; box-shadow: 0 10px 30px rgba(0,0,0,0.35);
       font: 500 13px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif;
     }
     #${ROOT_ID} .w2p-toolbar button {
@@ -115,7 +115,7 @@ function injectStyles(): HTMLStyleElement {
       padding: 6px 10px; border-radius: 8px;
     }
     #${ROOT_ID} .w2p-toolbar button:hover { background: rgba(255,255,255,0.18); }
-    #${ROOT_ID} .w2p-toolbar button.w2p-primary { background: #c2410c; border-color: #c2410c; }
+    #${ROOT_ID} .w2p-toolbar button.w2p-primary { background: #F97316; border-color: #F97316; color: #1F2937; font-weight: 600; }
     #${ROOT_ID} .w2p-count { opacity: 0.85; }
   `;
   document.documentElement.appendChild(style);

@@ -1,6 +1,9 @@
 /**
- * The extension mark: a sheet with the download arrow knocked out of it.
- * Kept in sync with `assets/icon.svg`.
+ * The extension mark, drawn to match `assets/icon-small.svg`.
+ *
+ * The supplied artwork is a raster whose two stacked elements merge below
+ * about 48px; the popup renders this at 24px, so it uses the simplified
+ * document form for the same reason the 16 and 32 PNGs do.
  */
 export function Logo({ className = 'h-6 w-6' }: { className?: string }) {
   return (
@@ -8,30 +11,23 @@ export function Logo({ className = 'h-6 w-6' }: { className?: string }) {
       <defs>
         <linearGradient
           id="w2p-logo-bg"
-          x1="8"
-          y1="0"
-          x2="120"
-          y2="128"
+          x1="10"
+          y1="4"
+          x2="118"
+          y2="124"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#FFC24A" />
-          <stop offset="0.55" stopColor="#FB8B1E" />
-          <stop offset="1" stopColor="#EE4E0B" />
+          <stop offset="0" stopColor="#F97316" />
+          <stop offset="1" stopColor="#EA580C" />
         </linearGradient>
-        <mask id="w2p-logo-cut">
-          <rect width="128" height="128" fill="#000" />
-          <path
-            d="M38 24h34l22 22v58a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8Z"
-            fill="#fff"
-          />
-          <path d="M62 44v22" stroke="#000" strokeWidth="12" strokeLinecap="round" />
-          <path d="M44 68h36L62 90Z" fill="#000" />
-        </mask>
       </defs>
 
       <rect width="128" height="128" rx="30" fill="url(#w2p-logo-bg)" />
-      <rect width="128" height="128" mask="url(#w2p-logo-cut)" fill="#fff" />
-      <path d="M72 24v16a6 6 0 0 0 6 6h16Z" fill="#FFE2BC" />
+      <path d="M28 30a8 8 0 0 1 8-8h40l24 24v52a8 8 0 0 1-8 8H36a8 8 0 0 1-8-8Z" fill="#FFFFFF" />
+      <path d="M76 22v16a8 8 0 0 0 8 8h16Z" fill="#FED7AA" />
+      <rect x="42" y="62" width="48" height="10" rx="5" fill="#F97316" />
+      <rect x="42" y="80" width="48" height="10" rx="5" fill="#F97316" />
+      <rect x="42" y="98" width="30" height="10" rx="5" fill="#FDBA74" />
     </svg>
   );
 }

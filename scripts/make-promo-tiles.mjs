@@ -24,14 +24,11 @@ const OUT = join(ROOT, 'docs/screenshots/store');
 const LOGO = `
 <svg viewBox="0 0 128 128" class="logo" aria-hidden="true">
   <rect width="128" height="128" rx="28" fill="rgba(255,255,255,0.16)"/>
-  <mask id="promoCut">
-    <rect width="128" height="128" fill="#000"/>
-    <path d="M38 24h34l22 22v58a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8Z" fill="#fff"/>
-    <path d="M62 44v22" stroke="#000" stroke-width="12" stroke-linecap="round"/>
-    <path d="M44 68h36L62 90Z" fill="#000"/>
-  </mask>
-  <rect width="128" height="128" mask="url(#promoCut)" fill="#fff"/>
-  <path d="M72 24v16a6 6 0 0 0 6 6h16Z" fill="#FFE2BC"/>
+  <path d="M28 30a8 8 0 0 1 8-8h40l24 24v52a8 8 0 0 1-8 8H36a8 8 0 0 1-8-8Z" fill="#FFFFFF"/>
+  <path d="M76 22v16a8 8 0 0 0 8 8h16Z" fill="#FED7AA"/>
+  <rect x="42" y="62" width="48" height="10" rx="5" fill="#F97316"/>
+  <rect x="42" y="80" width="48" height="10" rx="5" fill="#F97316"/>
+  <rect x="42" y="98" width="30" height="10" rx="5" fill="#FDBA74"/>
 </svg>`;
 
 function page({ width, height, scale }) {
@@ -45,7 +42,7 @@ function page({ width, height, scale }) {
     font-family: ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     background:
       radial-gradient(120% 140% at 88% 8%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%),
-      linear-gradient(135deg, #FFB03A 0%, #F97316 45%, #E04405 100%);
+      linear-gradient(135deg, #F97316 0%, #F97316 40%, #EA580C 100%);
     position: relative;
   }
   /* Faint sheets fanned out behind the text - reads as "pages", not clip-art. */
